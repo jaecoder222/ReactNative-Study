@@ -1,4 +1,4 @@
-package com.learnreactnavigation.newarchitecture.components;
+package com.kk.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
