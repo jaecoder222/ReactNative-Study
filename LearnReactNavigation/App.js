@@ -1,71 +1,38 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Text} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-const Tab = createBottomTabNavigator();
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import MainScreen from './screens/MainScreen';
+import DetailScreen from './screens/DetailScreen';
 
-function HomeScreen() {
-  return <Text>Home</Text>;
-}
+const Stack = createNativeStackNavigator();
 
-function SearchScreen() {
-  return <Text>SearchScreen</Text>;
-}
-
-function NotificationScreen() {
-  return <Text>NotificationScreen</Text>;
-}
-
-function MessageScreen() {
-  return <Text>MessageScreen</Text>;
+function getHeaderTitle(route) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+  const nameMap = {
+    Home: '홈',
+    Search: '검색',
+    Notification: '알림',
+    Message: '메세지',
+  };
+  return nameMap[routeName];
 }
 
 function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            title: '홈',
-            tabBarIcon: ({color, size}) => (
-              <Icon name="home" color={color} size={size} />
-            ),
-          }}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Main"
+          component={MainScreen}
+          options={({route}) => ({
+            title: getHeaderTitle(route),
+          })}
         />
-        <Tab.Screen
-          name="Search"
-          component={SearchScreen}
-          options={{
-            title: '검색',
-            tabBarIcon: ({color, size}) => (
-              <Icon name="search" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Notification"
-          component={NotificationScreen}
-          options={{
-            title: '알림',
-            tabBarIcon: ({color, size}) => (
-              <Icon name="notifications" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Message"
-          component={MessageScreen}
-          options={{
-            title: '메세지',
-            tabBarIcon: ({color, size}) => (
-              <Icon name="message" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+        <Stack.Screen name="Detail" component={DetailScreen} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
