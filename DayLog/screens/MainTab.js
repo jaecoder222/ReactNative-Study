@@ -12,7 +12,7 @@ function MainTab() {
     <Tab.Navigator
       tabBarOptions={{showLabel: false, activeTintColor: '#009688'}}>
       <Tab.Screen
-        name="Feeds"
+        name="피드"
         component={FeedsScreen}
         options={{
           tabBarIcon: ({color, size}) => (
